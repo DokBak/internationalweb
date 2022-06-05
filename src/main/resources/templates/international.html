@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{title}"></title>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<h1 data-th-text="#{welcome}"></h1>
+<span data-th-text="#{lang.change}"></span>:
+<select id="locales" >
+    <option value="ko" data-th-text="#{lang.ko}"
+            data-th-selected=" ${param.lang eq null or param.lang.toString()=='ko' }" />
+    <option value="en" data-th-text="#{lang.en}"
+            data-th-selected=" ${param.lang?.toString()=='en' }" />
+    <option value="ja" data-th-text="#{lang.ja}"
+            data-th-selected=" ${param.lang?.toString()=='ja' }" />
+</select>
+<button type=button id=btnClear >TEST</button>
+<script>
+    $('#locales').change(() => {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('international?lang=' + selectedOption);
+        }
+    })
+
+    $('#btnClear').click( ()=> {
+        $.get("sessionClear", res => {
+            alert(res)
+        })
+    })
+</script>
+</body>
+</html>
